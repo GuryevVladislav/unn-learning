@@ -13,7 +13,7 @@ int main() {
     std::cin >> userNumber;
 
     // Ввод массива
-    const int arraySize = 5;  // Размер массива
+    const int arraySize = 4;  // Размер массива
     int userArray[arraySize];
 
     std::cout << "Введите " << arraySize << " целых чисел:\n";
