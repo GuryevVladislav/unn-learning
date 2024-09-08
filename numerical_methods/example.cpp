@@ -1,36 +1,42 @@
 #include <iostream>
-#include <string>  // Для работы со строками
+#include <string>
+#include <vector>
+
+using namespace std;
 
 int main() {
     // Ввод строки
-    std::string userString;
-    std::cout << "Введите строку: ";
-    std::getline(std::cin, userString);  // Читаем строку, включая пробелы
+    string userString;
+    cout << "Enter the line: ";
+    getline(cin, userString);
 
     // Ввод числа
     int userNumber;
-    std::cout << "Введите целое число: ";
-    std::cin >> userNumber;
+    cout << "Enter an integer: ";
+    cin >> userNumber;
 
     // Ввод массива
-    const int arraySize = 4;  // Размер массива
-    int userArray[arraySize];
+    int arraySize;
+    cout << "Enter the size of the array: ";
+    cin >> arraySize;
 
-    std::cout << "Введите " << arraySize << " целых чисел:\n";
+    vector<int> userArray(arraySize); // Используем вектор для динамического массива
+
+    cout << "Enter  " << arraySize << " integers:\n";
     for (int i = 0; i < arraySize; ++i) {
-        std::cout << "Число " << (i + 1) << ": ";
-        std::cin >> userArray[i];
+        cout << "Number " << (i + 1) << ": ";
+        cin >> userArray[i];
     }
 
     // Вывод введенных данных
-    std::cout << "\nВы ввели:\n";
-    std::cout << "Строка: " << userString << "\n";
-    std::cout << "Число: " << userNumber << "\n";
-    std::cout << "Массив: ";
+    cout << "\nYou have entered:\n";
+    cout << "Line: " << userString << "\n";
+    cout << "Number: " << userNumber << "\n";
+    cout << "Array: ";
     for (int i = 0; i < arraySize; ++i) {
-        std::cout << userArray[i] << (i < arraySize - 1 ? ", " : "");
+        cout << userArray[i] << (i < arraySize - 1 ? ", " : "");
     }
-    std::cout << std::endl;
+    cout << endl;
 
     return 0;
 }
