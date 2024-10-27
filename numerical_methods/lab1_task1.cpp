@@ -36,7 +36,7 @@ int main() {
         k[i][4] = calculate_f(x[i], v[i-1] + h * k[i][3]);        
         v[i] = v[i-1] + (h / 6) * (k[i][1] + 2 * k[i][2] + 2 * k[i][3] + k[i][4]);
         
-        outputFile << x[i] << " " << k[i][1] << " " << k[i][2] << " " << k[i][3] << " " << k[i][4] << " " << v[i] << endl;
+        outputFile << x[i] << " " << v[i] << " " << k[i][1] << " " << k[i][2] << " " << k[i][3] << " " << k[i][4] << endl;
     }
 
 
