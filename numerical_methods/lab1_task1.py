@@ -5,10 +5,11 @@ import matplotlib.pyplot as plt
 with open("C:\\unn-learning\\results.txt", "r") as f:
  data = f.readlines()
 data = [line.strip().split() for line in data]
-df = pd.DataFrame(data, columns=['x', 'v', 'k1', 'k2', 'k3', 'k4'])
+df = pd.DataFrame(data, columns=['x', 'v', 'h' , 'k1', 'k2', 'k3', 'k4'])
 
 df['x'] = df['x'].astype(float)
 df['v'] = df['v'].astype(float)
+df['h'] = df['h'].astype(float)
 df['k1'] = df['k1'].astype(float)
 df['k2'] = df['k2'].astype(float)
 df['k3'] = df['k3'].astype(float)
@@ -46,4 +47,4 @@ if os.path.exists(filename):
 
 # Сохраняем изображение
 plt.savefig(filename, bbox_inches='tight')
-plt.show()
+print("График и таблица сохранены в ", filename)
