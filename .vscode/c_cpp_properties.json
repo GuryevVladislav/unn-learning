@@ -3,8 +3,9 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**", 
-                "C:/msys64/mingw64/include/**"
+                "${workspaceFolder}/**",
+                "C:/msys64/mingw64/include/**",
+                "${workspaceFolder}/numerical_methods"
             ],
             "defines": [
                 "_DEBUG",
