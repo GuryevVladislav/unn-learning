@@ -12,8 +12,6 @@
         "utility": "cpp",
         "valarray": "cpp",
         "optional": "cpp",
-        "sstream": "cpp",
-        "terminal.integrated.defaultProfile.windows": "powershell",
-        "fstream": "cpp"
+        "sstream": "cpp"
     }
 }

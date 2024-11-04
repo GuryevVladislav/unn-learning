@@ -2,7 +2,7 @@ import os
 import pandas as pd
 import matplotlib.pyplot as plt
 
-with open("C:\\unn-learning\\results.txt", "r") as f:
+with open("D:\\unn-learning\\results.txt", "r") as f:
  data = f.readlines()
 data = [line.strip().split() for line in data]
 df = pd.DataFrame(data, columns=['x', 'v', 'h' , 'k1', 'k2', 'k3', 'k4'])
@@ -42,3 +42,4 @@ if os.path.exists(filename):
 
 plt.savefig(filename, bbox_inches='tight')
 print("График и таблица сохранены в ", filename)
+

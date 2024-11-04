@@ -32,7 +32,7 @@ int main() {
     h = (b - x[0]) / (n - 1);
     x[0] = -h;
 
-    string path="C:\\unn-learning\\";
+    string path="D:\\unn-learning\\";
     filesystem::remove(path+"results.txt");
     ofstream outputFile(path+"results.txt");
 
@@ -52,5 +52,3 @@ int main() {
 
     return 0;
 }
-
-
