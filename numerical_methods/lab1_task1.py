@@ -5,15 +5,17 @@ import matplotlib.pyplot as plt
 with open("D:\\unn-learning\\results.txt", "r") as f:
  data = f.readlines()
 data = [line.strip().split() for line in data]
-df = pd.DataFrame(data, columns=['x', 'v', 'h' , 'k1', 'k2', 'k3', 'k4'])
+df = pd.DataFrame(data, columns=['i','x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2'])
 
+df['i'] = df['i'].astype(int)
 df['x'] = df['x'].astype(float)
 df['v'] = df['v'].astype(float)
+df['v2'] = df['v2'].astype(float)
+df['v-v2'] = df['v-v2'].astype(float)
+df['OLP'] = df['OLP'].astype(float)
 df['h'] = df['h'].astype(float)
-df['k1'] = df['k1'].astype(float)
-df['k2'] = df['k2'].astype(float)
-df['k3'] = df['k3'].astype(float)
-df['k4'] = df['k4'].astype(float)
+df['c1'] = df['c1'].astype(int)
+df['c2'] = df['c2'].astype(int)
 df.index = df.index + 1
 
 
@@ -29,7 +31,7 @@ table = ax.table(
   cellText=df.values, 
   colLabels=df.columns, 
   loc='bottom',
-  bbox=[0.2, -0.5, 0.6, 0.3]
+  bbox=[0.0, -0.5, 1.0, 0.3]
 )
 
 table.set_fontsize(10)
