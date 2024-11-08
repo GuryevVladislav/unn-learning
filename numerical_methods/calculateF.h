@@ -24,6 +24,31 @@ double calculate_f(string name, double x, double u) {
        }
 }
 
-double calculate_exp(double a, double x) {
-  return a * exp(x);
+double calculate_exp(double v, double x) {
+  return v * exp(x);
+}
+
+class Result {
+public:
+  double x;
+  double v;
+};
+
+Result calculate_result(string name,Result result, double h) {
+    vector<double> k(5);
+    double x,v;
+    x=result.x;
+    v=result.v;
+
+    k[1] = calculate_f(name, x, v);
+    k[2] = calculate_f(name, x + (h/2), v + (h/2) * k[1]);      
+    k[3] = calculate_f(name, x + (h/2), v + (h/2) * k[2]);     
+    k[4] = calculate_f(name, x + h, v + h * k[3]);       
+    v = v + (h / 6) * (k[1] + 2 * k[2] + 2 * k[3] + k[4]);
+    x=x+h;
+
+    result.x = x;
+    result.v = v;
+
+  return result;
 }

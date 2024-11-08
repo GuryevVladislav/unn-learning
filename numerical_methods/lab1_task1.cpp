@@ -10,79 +10,65 @@ using namespace std;
 
 int main() {
     int n,count=0;
-    double v2, x2, x, v, b, e, h, olp,s, vCheck, a;
+    double v2, x2, b, e, h, olp,s, vCheck, a;
     string name;
     vector<double> k(5);
     vector<double> k2(5);
+    Result result0,result,result05, result2;;
+result0.x=0;
 
     cout << "Введите количество шагов: ";
     cin >> n;
-    n++;
+    
     cout<< "Введите e: ";
     cin >> e;
     cout << "Введите правую границу: ";
     cin >> b;
     cout << "Введите начальное условие: ";
-    cin >> v;
-    a=v;
+    cin >> result0.v;
+    a=result0.v;
     cout<<"Введите название задачи: \n Тестовая задача - test\n Основная задача №1 - task1\n";
     cin >> name;
 
-    h = (b - x) / (n - 1);
-    x = 0;
+    h = (b - result0.x) / n;
+    n++;
 
-    string path="C:\\unn-learning\\";
+    string path="D:\\unn-learning\\";
     filesystem::remove(path+"results.txt");
     ofstream outputFile(path+"results.txt");
-    outputFile << count << " "<< x << " " << v << " " << 0 << " "<< 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 <<" " << 0 <<endl;
+    outputFile << count << " "<< result0.x << " " << result0.v << " " << 0 << " "<< 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 <<" " << 0 <<endl;
         
 
     for (int i = 1; i < n; i++) {
         int c1=0, c2=0;
         bool ok= false;
         while (!ok) {
-            k[1] = calculate_f(name, x, v);
-            k[2] = calculate_f(name, x + (h/2), v + (h/2) * k[1]);      
-            k[3] = calculate_f(name, x + (h/2), v + (h/2) * k[2]);     
-            k[4] = calculate_f(name, x + h, v + h * k[3]);
+            result=calculate_result(name,result0, h);
+            result05=calculate_result(name,result0, h/2);
+            result2=calculate_result(name, result05, h/2);
 
-            v2=v; 
-            x2=x;       
-            vCheck = v + (h / 6) * (k[1] + 2 * k[2] + 2 * k[3] + k[4]);
-            h=h/2;
-            
-            for (int j = 1; j < 3;  j++) {
-                k2[1] = calculate_f(name, x2, v2);
-                k2[2] = calculate_f(name, x2 + (h/2), v2 + (h/2) * k2[1]);      
-                k2[3] = calculate_f(name, x2 + (h/2), v2 + (h/2) * k2[2]);     
-                k2[4] = calculate_f(name, x2 + h, v2 + h * k[3]);        
-                v2 = v2 + (h / 6) * (k2[1] + 2 * k2[2] + 2 * k2[3] + k2[4]);
-                x2 = x2 + h;
-            }
-
-            s=(v2-vCheck)/15;
+            s=(result2.v-result05.v)/15;
 
             if ((e/31<abs(s)) && (abs(s)<e)) {
                 ok=true;  
-                v= vCheck;
-                h=2*h;
+                result0=result;
             }
             if (abs(s)<e/32) {
-                h=4*h;
+                h=2*h;
                 c2++;
                 ok=true;
-                v=vCheck;
+                result0=result;
             }
             if (abs(s)>e) {
                 c1++;
                 ok=false;
+                h=h/2;
             }
         }
         olp= 16*s;
         count++;
         
-        outputFile << count << " "<< x << " " << v << " " << v2 << " "<< v-v2 << " " << olp << " " << h << " " << c1 << " " << c2 << calculate_exp(a, x) << " " << abs(calculate_exp(a, x) - v) << " " << endl;
-        x =x + h;
+        outputFile << count << " "<< result0.x << " " << result0.v << " " << result2.v << " "<<  result0.v-result2.v << " " << olp << " " << h << " " << c1 << " " << c2 <<" " << calculate_exp(a, result0.x) << " " << abs(calculate_exp(a, result0.x) - result0.v) << " " << endl;
     }
 
     
