@@ -23,3 +23,7 @@ double calculate_f(string name, double x, double u) {
            return 0;
        }
 }
+
+double calculate_exp(double a, double x) {
+  return a * exp(x);
+}
