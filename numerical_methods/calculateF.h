@@ -201,3 +201,121 @@ int run_test(string path) {
 
     return 0;
 }
+
+class Result2 {
+public:
+  double u;
+  double u_pr;
+  double x;
+};
+
+double calculate_f2_task2(double u, double u_pr, double a, double b) {
+    return -a*u_pr-b*sin(u);
+}
+
+double calculate_f1_task2(double u) {
+    return u;
+}
+
+Result2 calculate_result_task2(string name, Result2 result, double h,double a, double b) {
+    vector<vector<int>> k(5, vector<int>(2));
+    double u,u_pr;
+    u=result.u;
+    u_pr=result.u_pr;
+
+    k[1][1] = calculate_f1_task2(u);
+    k[1][2] = calculate_f2_task2(u, u_pr, a, b);
+    k[2][1] = calculate_f1_task2(u + (h / 2)*k[1][1]);
+    k[2][2] = calculate_f2_task2(u + (h / 2)*k[1][1], u_pr + (h / 2)*k[1][2], a, b);
+    k[3][1] = calculate_f1_task2(u + (h / 2)*k[2][1]);      
+    k[3][2] = calculate_f2_task2(u + (h / 2)*k[2][1], u_pr + (h / 2)*k[2][2], a, b);
+    k[4][1] = calculate_f1_task2(u + h*k[3][1]);  
+    k[4][2] = calculate_f2_task2(u + h*k[3][1], u_pr + h*k[3][2], a, b);       
+    u = u + (h / 6) * (k[1][1] + 2 * k[2][1] + 2 * k[3][1] + k[4][1]);      
+    u_pr = u_pr + (h / 6) * (k[1][2] + 2 * k[2][2] + 2 * k[3][2] + k[4][2]);  
+
+    result.u = u;
+    result.u_pr = u_pr;
+    result.x=result.x+h;
+
+  return result;
+}
+
+int run_task2(string path) {
+    int n,count=0;
+    double v2, x2, b, e, h, olp,s, u_pr, a,r;
+    string name;
+    Result2 result0,result,result05, result2;;
+    result0.x=0;
+
+    cout << "Enter number of steps(n): ";
+    cin >> n;
+    
+    cout<< "Enter e: ";
+    cin >> e;
+    cout << "Enter right boundary(r): ";
+    cin >> r;
+    cout << "Enter initial u(0): ";
+    cin >> result0.u;
+    cout << "Enter initial u'(0): ";
+    cin>>result0.u_pr;
+    cout<< "Enter a: ";
+    cin>> a;
+    cout<< "Enter b: ";
+    cin>> b;
+    ofstream paramsFile(path+"initial_params.txt");
+    if (paramsFile.is_open()) {
+        paramsFile << n << " " << e << " " << r << " " << result0.u << endl;
+        paramsFile.close();
+    } else {
+        cerr << "Unable to open file for writing." << endl;
+    }
+
+    h = (r - result0.x) / n;
+    n++;
+
+    ofstream outputFile(path+"results.txt");
+    outputFile << count << " "<< result0.x << " " << result0.u << " " << 0 << " "<< 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 <<endl;
+        
+
+    for (int i = 1; i < n; i++) {
+        int c1=0, c2=0;
+        bool ok= false;
+        while (!ok) {
+            result=calculate_result_task2(name,result0, h, a, b);
+            result05=calculate_result_task2(name,result0, h/2, a, b);
+            result2=calculate_result_task2(name, result05, h/2, a, b);
+
+            s=(result2.u-result05.u)/15;
+
+            if ((e/31<abs(s)) && (abs(s)<e)) {
+                ok=true;  
+                result0=result;
+            }
+            if (abs(s)<e/32) {
+                h=2*h;
+                c2++;
+                ok=true;
+                result0=result;
+            }
+            if (abs(s)>e) {
+                c1++;
+                ok=false;
+                h=h/2;
+            }
+        }
+        olp= 16*s;
+        count++;
+        
+        outputFile << count << " "<< result0.x << " " << result0.u << " " << result2.u << " "<<  result0.u-result2.u << " " << olp << " " << h << " " << c1 << " " << c2  << endl;
+    }
+
+    
+
+    outputFile.close();
+    cout << "Results saved in results.txt" << endl;
+
+
+    return 0;
+}
+
