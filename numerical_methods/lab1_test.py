@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # --- Конфигурация ---
-RESULTS_DIR = "D:\\unn-learning\\numerical_methods\\results\\"
+RESULTS_DIR = "C:\\unn-learning\\numerical_methods\\results\\"
 FILES_TO_REMOVE = [RESULTS_DIR + "graph.png", RESULTS_DIR + "table.png", RESULTS_DIR + "input_parameters.png"]
 
 def read_params(filepath):

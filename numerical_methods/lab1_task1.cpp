@@ -4,11 +4,10 @@
 #include <cmath>
 #include <fstream>
 #include <filesystem>
-#include <locale>
 using namespace std;
 
 int main() {
-    string path="D:\\unn-learning\\numerical_methods\\results\\";
+    string path="C:\\unn-learning\\numerical_methods\\results\\";
     filesystem::remove(path+"results.txt");
     filesystem::remove(path+"initial_params.txt");
 
@@ -22,7 +21,7 @@ int main() {
     } else if (name == "task2"){
         run_task2(path);
     } else {
-         cout << "Такой задачи нет" << endl;
+         cout << "Task not found" << endl;
     }
     return 0;
 }

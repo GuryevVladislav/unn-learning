@@ -112,6 +112,10 @@ result0.x=0;
                 ok=false;
                 h=h/2;
             }
+            if ((c1==100)||(c2==100)){
+                cout<<"error "<<c1<<"||"<<c2<<endl;
+            }
+
         }
         olp= 16*s;
         count++;
@@ -187,6 +191,9 @@ int run_test(string path) {
                 ok=false;
                 h=h/2;
             }
+            if ((c1==100)||(c2==100)){
+                cout<<"error "<<c1<<"||"<<c2<<endl;
+            }
         }
         olp= 16*s;
         count++;
@@ -213,23 +220,23 @@ double calculate_f2_task2(double u, double u_pr, double a, double b) {
     return -a*u_pr-b*sin(u);
 }
 
-double calculate_f1_task2(double u) {
-    return u;
+double calculate_f1_task2(double u_pr) {
+    return u_pr;
 }
 
 Result2 calculate_result_task2(string name, Result2 result, double h,double a, double b) {
-    vector<vector<int>> k(5, vector<int>(2));
+    vector<vector<int>> k(5, vector<int>(3));
     double u,u_pr;
     u=result.u;
     u_pr=result.u_pr;
 
-    k[1][1] = calculate_f1_task2(u);
+    k[1][1] = calculate_f1_task2(u_pr);
     k[1][2] = calculate_f2_task2(u, u_pr, a, b);
-    k[2][1] = calculate_f1_task2(u + (h / 2)*k[1][1]);
+    k[2][1] = calculate_f1_task2(u_pr + (h / 2)*k[1][1]);
     k[2][2] = calculate_f2_task2(u + (h / 2)*k[1][1], u_pr + (h / 2)*k[1][2], a, b);
-    k[3][1] = calculate_f1_task2(u + (h / 2)*k[2][1]);      
+    k[3][1] = calculate_f1_task2(u_pr + (h / 2)*k[2][1]);      
     k[3][2] = calculate_f2_task2(u + (h / 2)*k[2][1], u_pr + (h / 2)*k[2][2], a, b);
-    k[4][1] = calculate_f1_task2(u + h*k[3][1]);  
+    k[4][1] = calculate_f1_task2(u_pr + h*k[3][1]);  
     k[4][2] = calculate_f2_task2(u + h*k[3][1], u_pr + h*k[3][2], a, b);       
     u = u + (h / 6) * (k[1][1] + 2 * k[2][1] + 2 * k[3][1] + k[4][1]);      
     u_pr = u_pr + (h / 6) * (k[1][2] + 2 * k[2][2] + 2 * k[3][2] + k[4][2]);  
@@ -302,6 +309,9 @@ int run_task2(string path) {
                 c1++;
                 ok=false;
                 h=h/2;
+            }
+            if ((c1==100)||(c2==100)){
+                cout<<"error "<<c1<<"||"<<c2<<endl;
             }
         }
         olp= 16*s;
