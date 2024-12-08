@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    string path="C:\\unn-learning\\numerical_methods\\results\\";
+    string path="D:\\unn-learning\\numerical_methods\\results\\";
     filesystem::remove(path+"results.txt");
     filesystem::remove(path+"initial_params.txt");
 

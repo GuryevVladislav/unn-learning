@@ -212,37 +212,39 @@ int run_test(string path) {
 class Result2 {
 public:
   double u;
-  double u_pr;
+  double u1;
   double x;
 };
 
-double calculate_f2_task2(double u, double u_pr, double a, double b) {
-    return -a*u_pr-b*sin(u);
+double calculate_f2_task2(double u, double u1, double a, double b) {
+    return -a*u1-b*sin(u);
 }
 
-double calculate_f1_task2(double u_pr) {
-    return u_pr;
+double calculate_f1_task2(double u1) {
+    return u1;
 }
 
 Result2 calculate_result_task2(string name, Result2 result, double h,double a, double b) {
     vector<vector<int>> k(5, vector<int>(3));
-    double u,u_pr;
+    double u,u1;
     u=result.u;
-    u_pr=result.u_pr;
+    u1=result.u1;
 
-    k[1][1] = calculate_f1_task2(u_pr);
-    k[1][2] = calculate_f2_task2(u, u_pr, a, b);
-    k[2][1] = calculate_f1_task2(u_pr + (h / 2)*k[1][1]);
-    k[2][2] = calculate_f2_task2(u + (h / 2)*k[1][1], u_pr + (h / 2)*k[1][2], a, b);
-    k[3][1] = calculate_f1_task2(u_pr + (h / 2)*k[2][1]);      
-    k[3][2] = calculate_f2_task2(u + (h / 2)*k[2][1], u_pr + (h / 2)*k[2][2], a, b);
-    k[4][1] = calculate_f1_task2(u_pr + h*k[3][1]);  
-    k[4][2] = calculate_f2_task2(u + h*k[3][1], u_pr + h*k[3][2], a, b);       
+    k[1][1] = calculate_f1_task2(u1);
+    k[1][2] = calculate_f2_task2(u, u1, a, b);
+    k[2][1] = calculate_f1_task2(u1 + (h / 2)*k[1][1]);
+    k[2][2] = calculate_f2_task2(u + (h / 2)*k[1][1], u1 + (h / 2)*k[1][2], a, b);
+    k[3][1] = calculate_f1_task2(u1 + (h / 2)*k[2][1]);      
+    k[3][2] = calculate_f2_task2(u + (h / 2)*k[2][1], u1 + (h / 2)*k[2][2], a, b);
+    k[4][1] = calculate_f1_task2(u1 + h*k[3][1]);  
+    k[4][2] = calculate_f2_task2(u + h*k[3][1], u1 + h*k[3][2], a, b);       
     u = u + (h / 6) * (k[1][1] + 2 * k[2][1] + 2 * k[3][1] + k[4][1]);      
-    u_pr = u_pr + (h / 6) * (k[1][2] + 2 * k[2][2] + 2 * k[3][2] + k[4][2]);  
+    u1 = u1 + (h / 6) * (k[1][2] + 2 * k[2][2] + 2 * k[3][2] + k[4][2]);  
+
+
 
     result.u = u;
-    result.u_pr = u_pr;
+    result.u1 = u1;
     result.x=result.x+h;
 
   return result;
@@ -265,7 +267,7 @@ int run_task2(string path) {
     cout << "Enter initial u(0): ";
     cin >> result0.u;
     cout << "Enter initial u'(0): ";
-    cin>>result0.u_pr;
+    cin>>result0.u1;
     cout<< "Enter a: ";
     cin>> a;
     cout<< "Enter b: ";
