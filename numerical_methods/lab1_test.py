@@ -3,102 +3,86 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# --- Конфигурация ---
-RESULTS_DIR = "C:\\unn-learning\\numerical_methods\\results\\"
-FILES_TO_REMOVE = [RESULTS_DIR + "graph.png", RESULTS_DIR + "table.png", RESULTS_DIR + "input_parameters.png"]
+# Удаляем предыдущие файлы, если они существуют
+if os.path.exists("graph.png"):
+  os.remove("graph.png")
+if os.path.exists("table.png"):
+  os.remove("table.png")
 
-def read_params(filepath):
-  """Читает параметры из файла."""
-  try:
-    with open(filepath, "r") as f:
-      params = f.readline().strip().split()
-      return {
-        "n": int(params[0]),
-        "e": float(params[1]),
-        "b": float(params[2]),
-        "v0": float(params[3]),
-      }
-  except FileNotFoundError:
-    raise FileNotFoundError(f"Файл {filepath} не найден.")
-  except (ValueError, IndexError) as e:
-    raise ValueError(f"Ошибка при разборе файла {filepath}: {e}")
+with open("numerical_methods\\results\\results.txt", "r") as f:
+  data = f.readlines()
+data = [line.strip().split() for line in data]
+df = pd.DataFrame(data, columns=['i','x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2', 'u','|u-v|'])
 
-def read_results(filepath):
-  """Читает результаты из файла."""
-  try:
-    with open(filepath, "r") as f:
-      data = f.readlines()
-      return [line.strip().split() for line in data if line.strip()]
-  except FileNotFoundError:
-    raise FileNotFoundError(f"Файл {filepath} не найден.")
-  except Exception as e:
-    raise Exception(f"Ошибка при чтении файла {filepath}: {e}")
+df['i'] = df['i'].astype(float)
+df['x'] = df['x'].astype(float)
+df['v'] = df['v'].astype(float)
+df['v2'] = df['v2'].astype(float)
+df['v-v2'] = df['v-v2'].astype(float)
+df['OLP'] = df['OLP'].astype(float)
+df['h'] = df['h'].astype(float)
+df['c1'] = df['c1'].astype(float)
+df['c2'] = df['c2'].astype(float)
+df['u'] = df['u'].astype(float)
+df['|u-v|'] = df['|u-v|'].astype(float)
+df.index = df.index + 1
 
-def create_dataframe(data):
-  """Создает DataFrame из данных."""
-  df = pd.DataFrame(data, columns=['i', 'x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2', 'u', '|u-v|'])
-  for col in df.columns:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
-  df.index = df.index + 1
-  return df
+# Ввод значения 'a' с клавиатуры
+a = float(input("Введите значение 'a': "))
+h = float(input("Введите количество шагов: "))
 
-def save_plot(filepath, x_data, y_data, title, xlabel, ylabel, extra_line=None):
-  """Сохраняет график в файл."""
-  fig, ax = plt.subplots(figsize=(12, 8))
-  ax.plot(x_data, y_data, label='v(x)')
-  if extra_line:
-    x, y, label = extra_line
-    ax.plot(x, y, linestyle='--', label=label)
-  ax.set_xlabel(xlabel)
-  ax.set_ylabel(ylabel)
-  ax.legend()
-  ax.set_title(title)
-  ax.grid(True)
-  plt.tight_layout()
-  plt.savefig(filepath, bbox_inches='tight')
-  plt.close(fig)
+# --- Сохранение графика ---
 
-def save_table(filepath, data, columns, figsize=(12, 8), scale=1.2):
-  """Сохраняет таблицу в файл."""
-  fig, ax = plt.subplots(figsize=figsize)
-  table = ax.table(
-    cellText=data.values,
-    colLabels=columns,
-    loc='center',
-    bbox=[0.0, 0.0, 1.0, 1.0]
-  )
-  table.set_fontsize(10)
-  table.auto_set_font_size(False)
-  table.scale(scale, scale)
-  ax.axis('off')
-  plt.tight_layout()
-  plt.savefig(filepath, bbox_inches='tight')
-  plt.close(fig)
+fig, ax = plt.subplots(figsize=(12, 8)) # Размер по умолчанию
 
-def save_params_table(filepath, params):
-  """Сохраняет таблицу параметров."""
-  params_df = pd.DataFrame({"Parameter": params.keys(), "Value": params.values()})
-  save_table(filepath, params_df, params_df.columns, figsize=(6, 2), scale=1.5)
+# Вывод графика v(x)
+ax.plot(df['x'], df['v'], label='v(x)')
 
-if __name__ == "__main__":
-  try:
-    for filename in FILES_TO_REMOVE:
-      if os.path.exists(filename):
-        os.remove(filename)
+# Вывод графика y=a*e^x
+x_values = np.linspace(df['x'].min(), df['x'].max(), 100)
+y_values = a * np.exp(x_values)
+ax.plot(x_values, y_values, label=f'y = {a:.2f}e^x', linestyle='--')
 
-    params = read_params(RESULTS_DIR + "initial_params.txt")
-    n = params["n"]
-    v0 = params["v0"]
-    results_data = read_results(RESULTS_DIR + "results.txt")
-    df = create_dataframe(results_data)
+# Настройка графика
+ax.set_xlabel('x')
+ax.set_ylabel('v')
+ax.legend()
+ax.set_title('График зависимости v от x и y = ae^x')
+ax.grid(True)
 
-    x_values = np.linspace(df['x'].min(), df['x'].max(), 100)
-    y_values = v0 * np.exp(x_values)
-    extra_line = (x_values, y_values, rf'y = {v0:.2f}e$^x$') # используем rf-строку для LaTeX
+plt.tight_layout() # Удаляем ненужные отступы
 
-    save_plot(RESULTS_DIR + "graph.png", df['x'], df['v'], 'График зависимости v от x', 'x', 'v', extra_line=extra_line)
-    save_table(RESULTS_DIR + "table.png", df, df.columns, figsize=(12, max(8, n * 0.3)))
-    save_params_table(RESULTS_DIR + "input_parameters.png", params)
+filename_graph = "graph.png"
+if os.path.exists(filename_graph):
+  os.remove(filename_graph)
 
-  except (FileNotFoundError, ValueError, Exception) as e:
-    print(f"Ошибка: {e}")
+plt.savefig(filename_graph, bbox_inches='tight')
+print("График сохранен в ", filename_graph)
+plt.close(fig) # Закрываем окно графика
+
+# --- Сохранение таблицы ---
+
+fig, ax = plt.subplots(figsize=(12, h/2)) # Создаем новый рисунок
+
+# Создаем таблицу
+table = ax.table(
+  cellText=df.values[:110], # Вывод только первых 110 строк
+  colLabels=df.columns,
+  loc='center', 
+  bbox=[0.0, 0.0, 1.0, 1.0] # Заполняем все пространство рисунка
+)
+
+table.set_fontsize(10)
+table.auto_set_font_size(False)
+table.scale(1.5, 1.5) # Увеличиваем масштаб таблицы
+
+ax.axis('off') # Убираем оси
+plt.tight_layout() # Удаляем ненужные отступы
+
+filename_table = "table.png"
+if os.path.exists(filename_table):
+  os.remove(filename_table)
+
+plt.savefig(filename_table, bbox_inches='tight')
+print("Таблица сохранена в ", filename_table)
+plt.close(fig) # Закрываем окно таблицы

@@ -9,6 +9,20 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "lab1_task.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_task.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "lab1_test.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_test.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "g++.exe",
             "type": "cppdbg",
             "request": "launch",

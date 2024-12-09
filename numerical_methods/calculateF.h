@@ -92,28 +92,33 @@ result0.x=0;
         bool ok= false;
         while (!ok) {
             result=calculate_result(name,result0, h);
-            result05=calculate_result(name,result0, h/2);
-            result2=calculate_result(name, result05, h/2);
+            if (e!=0){
+                result05=calculate_result(name,result0, h/2);
+                result2=calculate_result(name, result05, h/2);
 
-            s=(result2.v-result05.v)/15;
+                s=(result2.v-result05.v)/15;
 
-            if ((e/31<abs(s)) && (abs(s)<e)) {
+                if ((e/31<abs(s)) && (abs(s)<e)) {
+                    ok=true;  
+                    result0=result;
+                }
+                if (abs(s)<e/32) {
+                    h=2*h;
+                    c2++;
+                    ok=true;
+                    result0=result;
+                }
+                if (abs(s)>e) {
+                    c1++;
+                    ok=false;
+                    h=h/2;
+                }
+                if ((c1==100)||(c2==100)){
+                    cout<<"error "<<c1<<"||"<<c2<<endl;
+                }
+            }else{
                 ok=true;  
                 result0=result;
-            }
-            if (abs(s)<e/32) {
-                h=2*h;
-                c2++;
-                ok=true;
-                result0=result;
-            }
-            if (abs(s)>e) {
-                c1++;
-                ok=false;
-                h=h/2;
-            }
-            if ((c1==100)||(c2==100)){
-                cout<<"error "<<c1<<"||"<<c2<<endl;
             }
 
         }
@@ -171,28 +176,30 @@ int run_test(string path) {
         bool ok= false;
         while (!ok) {
             result=calculate_result(name,result0, h);
-            result05=calculate_result(name,result0, h/2);
-            result2=calculate_result(name, result05, h/2);
+            if (e!=0){
+                result05=calculate_result(name,result0, h/2);
+                result2=calculate_result(name, result05, h/2);
 
-            s=(result2.v-result05.v)/15;
+                s=(result2.v-result05.v)/15;
 
-            if ((e/31<abs(s)) && (abs(s)<e)) {
+                if ((e/31<abs(s)) && (abs(s)<e)) {
+                    ok=true;  
+                    result0=result;
+                }
+                if (abs(s)<e/32) {
+                    h=2*h;
+                    c2++;
+                    ok=true;
+                    result0=result;
+                }
+                if (abs(s)>e) {
+                    c1++;
+                    ok=false;
+                    h=h/2;
+                }
+            }else{
                 ok=true;  
                 result0=result;
-            }
-            if (abs(s)<e/32) {
-                h=2*h;
-                c2++;
-                ok=true;
-                result0=result;
-            }
-            if (abs(s)>e) {
-                c1++;
-                ok=false;
-                h=h/2;
-            }
-            if ((c1==100)||(c2==100)){
-                cout<<"error "<<c1<<"||"<<c2<<endl;
             }
         }
         olp= 16*s;
@@ -225,21 +232,23 @@ double calculate_f1_task2(double u1) {
 }
 
 Result2 calculate_result_task2(string name, Result2 result, double h,double a, double b) {
-    vector<vector<int>> k(5, vector<int>(3));
+    //vector<vector<int>> k(5, vector<int>(3));
+    vector<double> k(5);
+    vector<double> l(5);
     double u,u1;
     u=result.u;
     u1=result.u1;
 
-    k[1][1] = calculate_f1_task2(u1);
-    k[1][2] = calculate_f2_task2(u, u1, a, b);
-    k[2][1] = calculate_f1_task2(u1 + (h / 2)*k[1][1]);
-    k[2][2] = calculate_f2_task2(u + (h / 2)*k[1][1], u1 + (h / 2)*k[1][2], a, b);
-    k[3][1] = calculate_f1_task2(u1 + (h / 2)*k[2][1]);      
-    k[3][2] = calculate_f2_task2(u + (h / 2)*k[2][1], u1 + (h / 2)*k[2][2], a, b);
-    k[4][1] = calculate_f1_task2(u1 + h*k[3][1]);  
-    k[4][2] = calculate_f2_task2(u + h*k[3][1], u1 + h*k[3][2], a, b);       
-    u = u + (h / 6) * (k[1][1] + 2 * k[2][1] + 2 * k[3][1] + k[4][1]);      
-    u1 = u1 + (h / 6) * (k[1][2] + 2 * k[2][2] + 2 * k[3][2] + k[4][2]);  
+    k[1] = calculate_f1_task2(u1);
+    l[1] = calculate_f2_task2(u, u1, a, b);
+    k[2] = calculate_f1_task2(u1 + (h / 2)*l[1]);
+    l[2] = calculate_f2_task2(u + (h / 2)*k[1], u1 + (h / 2)*l[1], a, b);
+    k[3] = calculate_f1_task2(u1 + (h / 2)*l[2]);      
+    l[3] = calculate_f2_task2(u + (h / 2)*k[2], u1 + (h / 2)*l[2], a, b);
+    k[4] = calculate_f1_task2(u1 + h*l[3]);  
+    l[4] = calculate_f2_task2(u + h*k[3], u1 + h*l[3], a, b);       
+    u = u + (h / 6) * (k[1] + 2 * k[2] + 2 * k[3] + k[4]);      
+    u1 = u1 + (h / 6) * (l[1] + 2 * l[2] + 2 * l[3] + l[4]);  
 
 
 
@@ -292,28 +301,33 @@ int run_task2(string path) {
         bool ok= false;
         while (!ok) {
             result=calculate_result_task2(name,result0, h, a, b);
-            result05=calculate_result_task2(name,result0, h/2, a, b);
-            result2=calculate_result_task2(name, result05, h/2, a, b);
+            if (e!=0){
+                result05=calculate_result_task2(name,result0, h/2, a, b);
+                result2=calculate_result_task2(name, result05, h/2, a, b);
 
-            s=(result2.u-result05.u)/15;
+                s=(result2.u-result05.u)/15;
 
-            if ((e/31<abs(s)) && (abs(s)<e)) {
+                if ((e/31<abs(s)) && (abs(s)<e)) {
+                    ok=true;  
+                    result0=result;
+                }
+                if (abs(s)<e/32) {
+                    h=2*h;
+                    c2++;
+                    ok=true;
+                    result0=result;
+                }
+                if (abs(s)>e) {
+                    c1++;
+                    ok=false;
+                    h=h/2;
+                }
+                if ((c1==100)||(c2==100)){
+                    cout<<"error "<<c1<<"||"<<c2<<endl;
+                }
+            }else{
                 ok=true;  
                 result0=result;
-            }
-            if (abs(s)<e/32) {
-                h=2*h;
-                c2++;
-                ok=true;
-                result0=result;
-            }
-            if (abs(s)>e) {
-                c1++;
-                ok=false;
-                h=h/2;
-            }
-            if ((c1==100)||(c2==100)){
-                cout<<"error "<<c1<<"||"<<c2<<endl;
             }
         }
         olp= 16*s;
