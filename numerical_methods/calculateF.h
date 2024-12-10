@@ -293,7 +293,7 @@ int run_task2(string path) {
     n++;
 
     ofstream outputFile(path+"results.txt");
-    outputFile << count << " "<< result0.x << " " << result0.u << " " << 0 << " "<< 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 <<endl;
+    outputFile << count << " "<< result0.x << " " << result0.u << " " << 0 << " "<< 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 << " " << 0 <<endl;
         
 
     for (int i = 1; i < n; i++) {
@@ -333,7 +333,7 @@ int run_task2(string path) {
         olp= 16*s;
         count++;
         
-        outputFile << count << " "<< result0.x << " " << result0.u << " " << result2.u << " "<<  result0.u-result2.u << " " << olp << " " << h << " " << c1 << " " << c2  << endl;
+        outputFile << count << " "<< result0.x << " " << result0.u << " " << result2.u << " "<<  result0.u-result2.u << " " << olp << " " << h << " " << c1 << " " << c2 <<" "<< result0.u1 << endl;
     }
 
     

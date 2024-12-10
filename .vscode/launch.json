@@ -9,6 +9,13 @@
             "console": "integratedTerminal"
         },
         {
+            "name": "lab1_test.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_test.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "lab1_task1.py",
             "type": "debugpy",
             "request": "launch",
@@ -16,10 +23,10 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "lab1_test.py",
+            "name": "lab1_task2.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "numerical_methods\\lab1_test.py",
+            "program": "numerical_methods\\lab1_task2.py",
             "console": "integratedTerminal"
         },
         {
