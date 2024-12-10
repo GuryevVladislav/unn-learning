@@ -9,10 +9,10 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "lab1_task.py",
+            "name": "lab1_task1.py",
             "type": "debugpy",
             "request": "launch",
-            "program": "numerical_methods\\lab1_task.py",
+            "program": "numerical_methods\\lab1_task1.py",
             "console": "integratedTerminal"
         },
         {
@@ -27,11 +27,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
