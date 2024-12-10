@@ -2,15 +2,39 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "lab1_test.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_test.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "lab1_task1.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_task1.py",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "lab1_task2.py",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "numerical_methods\\lab1_task2.py",
+            "console": "integratedTerminal"
+        },
+        {
             "name": "g++.exe",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": [],
-            "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
             "MIMode": "gdb",
             "miDebuggerPath": "C:\\msys64\\mingw64\\bin\\gdb.exe",
             "setupCommands": [
@@ -22,6 +46,6 @@
             ],
             "preLaunchTask": "g++.exe build active file",
             "internalConsoleOptions": "neverOpen"
-        }
+        },
     ]
 }

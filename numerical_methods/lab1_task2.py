@@ -33,11 +33,15 @@ def read_results(filepath):
 
 def create_dataframe(data):
   """Создает DataFrame из данных."""
-  df = pd.DataFrame(data, columns=['i', 'x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2'])
-  for col in df.columns:
-    df[col] = pd.to_numeric(df[col], errors='coerce')
-  df.index = df.index + 1
-  return df
+  try:
+    df = pd.DataFrame(data, columns=['i', 'x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2', "v'"])
+    for col in df.columns:
+      df[col] = pd.to_numeric(df[col], errors='coerce')
+    df.index = df.index + 1
+    return df
+  except ValueError as e:
+    print(f"Ошибка при создании DataFrame: {e}. Возможно, не хватает данных в файле results.txt")
+    return None # Возвращаем None, чтобы показать, что создание DataFrame не удалось.
 
 def save_plot(filepath, x_data, y_data, title, xlabel, ylabel):
   """Сохраняет график в файл."""
@@ -62,10 +66,10 @@ def save_table(filepath, data, columns, figsize=(12, 8), scale=1.2):
   try:
     fig, ax = plt.subplots(figsize=figsize)
     table = ax.table(
-      cellText=data.values,
-      colLabels=columns,
-      loc='center',
-      bbox=[0.0, 0.0, 1.0, 1.0]
+        cellText=data[columns].values, # Изменение: выбираем только нужные столбцы
+        colLabels=columns,
+        loc='center',
+        bbox=[0.0, 0.0, 1.0, 1.0]
     )
     table.set_fontsize(10)
     table.auto_set_font_size(False)
@@ -107,8 +111,14 @@ try:
   results_data = read_results(RESULTS_DIR + "results.txt")
   df = create_dataframe(results_data)
 
-  save_plot(RESULTS_IMAGE_DIR + "/graph.png", df['x'], df['v'], 'График зависимости v от x', 'x', 'v')
-  save_table(RESULTS_IMAGE_DIR + "/table.png", df, df.columns, figsize=(12, max(8, n * 0.3))) #Динамический размер
+  if df is not None:
+        save_plot(RESULTS_IMAGE_DIR + "/graph_x_v.png", df['x'], df['v'], 'График зависимости v от x', 'x', 'v')
+        save_plot(RESULTS_IMAGE_DIR + "/graph_v_v_pr.png", df['v'], df["v'"], "График зависимости v от v'", 'v', "v'")
+        save_plot(RESULTS_IMAGE_DIR + "/graph_x_v_pr.png", df['x'], df["v'"], "График зависимости x от v'", 'x', "v'")
+        columns_to_save = ['i', 'x', 'v', 'v2', 'v-v2', 'OLP', 'h', 'c1', 'c2'] # Столбцы для сохранения
+        save_table(RESULTS_IMAGE_DIR + "/table.png", df, columns_to_save, figsize=(12, max(8, n * 0.3)))
+  else:
+    print("Не удалось создать DataFrame. Сохранение графиков и таблиц пропущено.")
 
 except FileNotFoundError as e:
   print(f"Ошибка: {e}")
