@@ -1,9 +1,9 @@
-#include <iostream>
-#include "calculateF.h"
-#include <vector>
 #include <cmath>
-#include <fstream>
 #include <filesystem>
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include "calculateF.h"
 using namespace std;
 
 int main() {
