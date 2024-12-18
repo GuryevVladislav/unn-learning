@@ -2,12 +2,11 @@
 #include <filesystem>
 #include <fstream>
 #include <iostream>
-#include <vector>
 #include "calculateF.h"
 using namespace std;
 
 int main() {
-    string path="D:\\unn-learning\\numerical_methods\\sem5_lab1\\results\\";
+    string path="C:\\unn-learning\\numerical_methods\\sem5_lab1\\results\\";
     filesystem::remove(path+"results.txt");
     filesystem::remove(path+"initial_params.txt");
 
