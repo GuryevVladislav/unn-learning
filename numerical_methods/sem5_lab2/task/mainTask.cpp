@@ -6,7 +6,6 @@
 #include <string>
 #include <filesystem>
 #include <fstream>
-using namespace std;
 
 //double MainTask::k1(double x)
 //{

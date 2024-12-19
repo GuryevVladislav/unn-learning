@@ -36,6 +36,7 @@ int main() {
         ofstream results(path+"results.txt");
         for (int j = 0; j < n; j++) {
             results<<data.i[j]<<" "<<data.x[j]<<" "<<data.v[j]<<" "<<data.x2[j]<<" "<<data.v2[j]<<" "<<data.diff[j]<<endl;
+            cout<<data.i[j]<<" "<<data.x[j]<<" "<<data.v[j]<<" "<<data.x2[j]<<" "<<data.v2[j]<<" "<<data.diff[j]<<endl;
         }
     }
 
