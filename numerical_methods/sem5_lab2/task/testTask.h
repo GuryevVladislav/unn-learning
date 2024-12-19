@@ -85,8 +85,6 @@ public:
     A[nodes - 1] = 0.;
     B[nodes - 1] = 0.;
 
-    //table->setRowCount(nodes);
-
     for (int i = 1; i < (nodes - 1); i++)
     {
         x += h;
@@ -101,14 +99,6 @@ public:
     task1.progonka();
     V = task1.getV();
 
-//    *series << QPointF(0., 1.);
-//    *seriesTrue << QPointF(0., 1.);
-//    *raz << QPointF(0., 0.);
-//    table->setItem(0, 0, new QTableWidgetItem(QString::number(0.)));
-//    table->setItem(0, 1, new QTableWidgetItem(QString::number(0.)));
-//    table->setItem(0, 2, new QTableWidgetItem(QString::number(1.)));
-//    table->setItem(0, 3, new QTableWidgetItem(QString::number(1.)));
-//    table->setItem(0, 4, new QTableWidgetItem(QString::number(1. - 1.)));
     data.push(TaskData::DataType::I, 0.);
     data.push(TaskData::DataType::X, 0.);
     data.push(TaskData::DataType::U, 0.);
@@ -127,13 +117,9 @@ public:
     for (int i = 1; i < nodes; i++)
     {
         x += h;
-//        *series << QPointF(x, V[i]);
         data.push(TaskData::DataType::I, i);
         data.push(TaskData::DataType::X, x);
         data.push(TaskData::DataType::V, V[i]);
-//        table->setItem(i, 0, new QTableWidgetItem(QString::number(i)));
-//        table->setItem(i, 1, new QTableWidgetItem(QString::number(x)));
-//        table->setItem(i, 3, new QTableWidgetItem(QString::number(V[i])));
 
         if (i == nodes) u = 0.;
         else if (x < ksi)
@@ -141,11 +127,6 @@ public:
         else
             u = C3*pow( M_E, sqrt(0.05)*x)+C4*pow( M_E, -sqrt(0.05)*x)+40.;
 
-//        *seriesTrue << QPointF(x, u);
-//
-//        table->setItem(i, 2, new QTableWidgetItem(QString::number(u)));
-//        table->setItem(i, 4, new QTableWidgetItem(QString::number(abs(u - V[i]))));
-//        *raz << QPointF(x, fabs(u - V[i]) * 1e10);
             data.push(TaskData::DataType::U, u);
             data.push(TaskData::DataType::DIFF, std::abs(u - V[i]));
     }

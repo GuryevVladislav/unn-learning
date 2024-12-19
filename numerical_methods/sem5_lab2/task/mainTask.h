@@ -194,18 +194,21 @@ TaskData calculate()
 
     x2 = 0.;
 
-    for (int i = 0; i < nodes2; i += 2)
+    for (int i = 2; i < nodes2; i += 2)
     {
         x2 = static_cast<double>(i) * (h2);
         data.push(TaskData::DataType::X2, x2);
         data.push(TaskData::DataType::V2, V2[i]);
     }
 
-    for (int i = 0; i < nodes; i++)
+    for (int i = 1; i < nodes; i++)
     {
         data.push(TaskData::DataType::DIFF, std::abs(V2[2 * i] - V[i]));
     }
-        return data;
+
+    return data;
+
+
 }
 };
 
