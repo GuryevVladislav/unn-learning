@@ -1,21 +1,21 @@
 {
     "configurations": [
         {
-            "name": "Win32",
-            "includePath": [
-                "${workspaceFolder}/**", 
-                "C:/msys64/mingw64/include/**"
-            ],
+            "cStandard": "c11",
+            "compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "cppStandard": "c++17",
             "defines": [
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE"
             ],
-            "windowsSdkVersion": "8.1",
-            "compilerPath": "C:\\msys64\\mingw64\\bin\\g++.exe",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "gcc-x86"
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/msys64/mingw64/include/**"
+            ],
+            "intelliSenseMode": "gcc-x86",
+            "name": "Win32",
+            "windowsSdkVersion": "8.1"
         }
     ],
     "version": 4
