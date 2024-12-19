@@ -23,12 +23,20 @@ int main() {
         ofstream inputFile(path+"input.txt");
         inputFile<<name<<" "<<n<<endl;
         ofstream results(path+"results.txt");
-        for (int j = 1; j < n; j++) {
+        for (int j = 0; j < n; j++) {
             results<<data.i[j]<<" "<<data.x[j]<<" "<<data.v[j]<<" "<<data.u[j]<<" "<<data.diff[j]<<endl;
         }
     }
     else {
-
+        MainTask test_task (n);
+        TaskData data(n);
+        data = test_task.calculate();
+        ofstream inputFile(path+"input.txt");
+        inputFile<<name<<" "<<n<<endl;
+        ofstream results(path+"results.txt");
+        for (int j = 0; j < n; j++) {
+            results<<data.i[j]<<" "<<data.x[j]<<" "<<data.v[j]<<" "<<data.x2[j]<<" "<<data.v2[j]<<" "<<data.diff[j]<<endl;
+        }
     }
 
 

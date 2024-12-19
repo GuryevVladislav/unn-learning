@@ -39,7 +39,7 @@ def process_data(filepath_results, filepath_input, output_dir):
 
         # Таблица
         #fig_height = max(8, n/2)
-        plt.figure(figsize=(12, max(8, n /2)))
+        plt.figure(figsize=(12, max(8, n /2.)))
         plt.axis('off')
         table = plt.table(cellText=df.values, colLabels=df.columns, loc='center')
         table.auto_set_font_size(True)
