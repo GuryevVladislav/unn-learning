@@ -7,7 +7,7 @@
 using namespace std;
 
 int main() {
-    string path="D:\\unn-learning\\numerical_methods\\sem5_lab2\\results\\";
+    string path="C:\\unn-learning\\numerical_methods\\sem5_lab2\\results\\";
     filesystem::remove(path+"results.txt");
     filesystem::remove(path+"input.txt");
     cout<< "Enter n"<<endl;

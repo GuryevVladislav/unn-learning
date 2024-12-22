@@ -30,8 +30,8 @@ def create_plots(df, name, n, output_dir, plot_type):
 
     # График y1(x) и y3(x)
     plt.figure(figsize=(8, 6))
-    plt.plot(df[x_col], df[y1_col], marker='o', linestyle='-', label=f'{y1_col}({x_col})')
-    plt.plot(df[x_col], df[y3_col], marker='s', linestyle='--', label=f'{y3_col}({x_col})')
+    plt.plot(df[x_col], df[y1_col], linestyle='-', label=f'{y1_col}({x_col})')
+    plt.plot(df[x_col], df[y3_col], linestyle='--', label=f'{y3_col}({x_col})')
     plt.xlabel(x_col)
     plt.ylabel(y_label)
     plt.title(title)
@@ -42,7 +42,7 @@ def create_plots(df, name, n, output_dir, plot_type):
 
     # График x от diff
     plt.figure(figsize=(8, 6))
-    plt.plot(df[x_col], df['diff'], marker='x', linestyle='', label='diff(x)')
+    plt.plot(df[x_col], df['diff'], linestyle='-', label='diff(x)')
     plt.xlabel(x_col)
     plt.ylabel('diff')
     plt.title(f'График diff(x) для задачи: {name}, n: {n}')
