@@ -1,6 +1,6 @@
 #ifndef TESTTASK_H
 #define TESTTASK_H
-#include "dataTask.h"
+#include "../ui/dataTask.h"
 #include "task.h"
 #include <cmath>
 

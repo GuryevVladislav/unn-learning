@@ -1,15 +1,13 @@
-
 #ifndef MAIN_TASK_H
 #define MAIN_TASK_H
 #include "task.h"
 #include <iostream>
 #include <vector>
 #include <cmath>
-#include "dataTask.h"
+#include "../ui/dataTask.h"
 #include <string>
-#include <filesystem>
-#include <fstream>
 using namespace std;
+
 class MainTask {
 private:
     double xi = 0.25;                                       // Кси

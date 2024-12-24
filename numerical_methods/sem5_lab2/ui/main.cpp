@@ -1,13 +1,19 @@
-#include "mainTask.h"
-#include "testTask.h"
+#include "../task/mainTask.h"
+#include "../task/testTask.h"
 #include "dataTask.h"
 #include <filesystem>
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 using namespace std;
 
 int main() {
-    string path="C:\\unn-learning\\numerical_methods\\sem5_lab2\\results\\";
+    if (getenv("PATH_RESULTS")==""){
+        cout << "PATH_RESULTS="<<getenv("PATH_RESULTS") << endl;
+        return 0;
+    }
+    cout << "PATH_RESULTS="<<getenv("PATH_RESULTS") << endl;
+    string path = getenv("PATH_RESULTS");
     filesystem::remove(path+"results.txt");
     filesystem::remove(path+"input.txt");
     cout<< "Enter n"<<endl;
